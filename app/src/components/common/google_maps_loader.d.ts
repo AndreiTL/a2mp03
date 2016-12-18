@@ -12,7 +12,7 @@ declare namespace IGoogleMapsLoaderService {
       google: any
     }
 
-    function load(
+    export function load(
       obj: ILoadOptions
     ): Promise<google.maps.Map>;
 }

@@ -6,7 +6,8 @@ import {LocationService} from '../common/location.service'
 
 @Component({
   selector: 'weather',
-  template: template
+  template: template,
+  providers: [LocationService, RestService]
 })
 export class WeatherComponent {
   @Input() amounttowns: string;
@@ -24,12 +25,14 @@ export class WeatherComponent {
   townsTable: Weather.ITownWeather[] ;
 
   constructor(
-      private zone: NgZone
+      private zone: NgZone,
+      private locationService: LocationService,
+      private restService: RestService
     ){
 
     console.log("WeatherComponent");
     this.townsTable = [];
-    LocationService.getCurrentLocation().then(
+    locationService.getCurrentLocation().then(
       (coordinate: Coordinates) => {
         this.downloadWeatherInCircle(coordinate.latitude, coordinate.longitude, parseInt(this.amounttowns));
       }
@@ -51,7 +54,7 @@ export class WeatherComponent {
 
   downloadWeatherInCircle(latitude: number, longitude: number, count: number){
     let urlTemplate: string = `http://api.openweathermap.org/data/2.5/find?lat=${latitude}&lon=${longitude}&cnt=${count}&appid=${this.API}`;
-    RestService.sendRequest(this.typeRequest, urlTemplate, this.async, '').then(
+    this.restService.sendRequest(this.typeRequest, urlTemplate, this.async, '').then(
       (responseText: string) => {
         this.updateTableList(responseText);
       },

@@ -23,8 +23,8 @@ export class GooglemapComponent {
 
   markerArray: NGoogleMapService.IMarkerPoint[];
 
-  constructor(locationService: LocationService,
-              googleMapLoaderService: GoogleMapLoaderService){
+  constructor(private locationService: LocationService,
+              private googleMapLoaderService: GoogleMapLoaderService){
     console.log("GooglemapComponent");
     this.initMap();
     locationService.getCurrentLocation().then(
@@ -57,7 +57,7 @@ export class GooglemapComponent {
   }
 
   initMap() {
-    googleMapLoaderService.load({key: this.key}).then((googleMaps: any) => {
+    this.googleMapLoaderService.load({key: this.key}).then((googleMaps: any) => {
       this.googleMapObj = new googleMaps.Map(document.getElementById('googlemap'), {
         center: {lat: parseFloat(this.lat), lng: parseFloat(this.lng)},
         zoom: parseInt(this.zoom)

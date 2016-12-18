@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 @Injectable()
 export class GoogleMapLoaderService {
 
-  load(options: IGoogleMapsLoaderService.ILoadOptions): Promise<any>{
+  load(options: IGoogleMapsLoaderService.ILoadOptions): Promise<google.maps.Map>{
     const callbackName = '__googleMapsApiOnLoadCallback';
 
     return new Promise((resolve, reject) => {
