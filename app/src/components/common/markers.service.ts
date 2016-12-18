@@ -1,4 +1,6 @@
-export const MarkersService ={
+import {Injectable} from "@angular/core";
+@Injectable()
+export class MarkersService {
   processMarkers(array: Weather.ITownWeather[]): NGoogleMapService.IMarkerPoint[] {
     let sampleArray: NGoogleMapService.IMarkerPoint[] = [];
     array.forEach((value, index, array) => {

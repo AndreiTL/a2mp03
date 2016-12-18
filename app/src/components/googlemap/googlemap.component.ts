@@ -7,7 +7,8 @@ import {GoogleMapLoaderService} from '../common/google_maps_loader.service';
 
 @Component({
   selector: 'googlemap',
-  template: template
+  template: template,
+  providers: [ LocationService, GoogleMapLoaderService]
 })
 export class GooglemapComponent {
   @Input() options: NGoogleMapService.IGoogleMapOptions ;
@@ -22,10 +23,11 @@ export class GooglemapComponent {
 
   markerArray: NGoogleMapService.IMarkerPoint[];
 
-  constructor(){
+  constructor(locationService: LocationService,
+              googleMapLoaderService: GoogleMapLoaderService){
     console.log("GooglemapComponent");
     this.initMap();
-    LocationService.getCurrentLocation().then(
+    locationService.getCurrentLocation().then(
       (coordinate: Coordinates) => {
         this.setMapCenterAndZoom(coordinate.latitude, coordinate.longitude, 8);
       }
@@ -55,7 +57,7 @@ export class GooglemapComponent {
   }
 
   initMap() {
-    GoogleMapLoaderService.load({key: this.key}).then((googleMaps: any) => {
+    googleMapLoaderService.load({key: this.key}).then((googleMaps: any) => {
       this.googleMapObj = new googleMaps.Map(document.getElementById('googlemap'), {
         center: {lat: parseFloat(this.lat), lng: parseFloat(this.lng)},
         zoom: parseInt(this.zoom)

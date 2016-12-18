@@ -1,4 +1,6 @@
-export const GoogleMapLoaderService =  {
+import {Injectable} from "@angular/core";
+@Injectable()
+export class GoogleMapLoaderService {
 
   load(options: IGoogleMapsLoaderService.ILoadOptions): Promise<any>{
     const callbackName = '__googleMapsApiOnLoadCallback';
@@ -44,4 +46,4 @@ export const GoogleMapLoaderService =  {
 
     });
   }
-};
+}

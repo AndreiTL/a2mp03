@@ -1,4 +1,6 @@
-export const LocationService =  {
+import {Injectable} from "@angular/core";
+@Injectable()
+export class LocationService {
   getCurrentLocation(): Promise<Coordinates> {
     return new Promise((resolve, reject): void => {
       let options = {
@@ -27,7 +29,7 @@ export const LocationService =  {
       navigator.geolocation.getCurrentPosition(success, error, options);
     });
   }
-};
+}
 
 
 
