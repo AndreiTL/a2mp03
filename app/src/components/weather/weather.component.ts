@@ -12,6 +12,7 @@ import {LocationService} from '../common/location.service'
 export class WeatherComponent {
   @Input() amounttowns: string;
   @Input() location: Coordinates;
+
   // @Output() updateMarkers: Function;
 
   API: string = `94c7919f6854ca11558382472a998f8f`;
@@ -27,7 +28,7 @@ export class WeatherComponent {
 
   constructor(
       private zone: NgZone,
-      private locationService: LocationService,
+      // private locationService: LocationService,
       private restService: RestService
     ){
 
@@ -38,6 +39,7 @@ export class WeatherComponent {
     //     this.downloadWeatherInCircle(coordinate.latitude, coordinate.longitude, parseInt(this.amounttowns));
     //   }
     // )
+    this.downloadWeatherInCircle(this.location.latitude, this.location.longitude, parseInt(this.amounttowns));
   }
 
   private updateTableList(responseText: string){
@@ -65,9 +67,7 @@ export class WeatherComponent {
         }
     );
   }
-
   // getWeatherObject(){
   //   return this.weatherObject;
   // }
-
 }

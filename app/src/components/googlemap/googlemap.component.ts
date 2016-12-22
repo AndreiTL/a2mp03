@@ -5,17 +5,22 @@ import {LocationService} from '../common/location.service';
 
 import {GoogleMapLoaderService} from '../common/google_maps_loader.service';
 
+// import {Coordinates} from 'typescript/lib/lib.es6.d.ts';
+
 @Component({
   selector: 'googlemap',
   template: template,
   providers: [ LocationService, GoogleMapLoaderService]
 })
 export class GooglemapComponent {
-  @Input() options: NGoogleMapService.IGoogleMapOptions ;
+  // @Input() options: NGoogleMapService.IGoogleMapOptions ;
+  // @Input() coordinates: Coordinates;
+  @Input() location: Coordinates;
+  @Input() zoom: number = 1;
 
-  lat: string = '0.0';
-  lng: string = '0.0';
-  zoom: string = '1';
+  // lat: string = '0.0';
+  // lng: string = '0.0';
+  // zoom: string = '1';
 
   key: string = 'AIzaSyDdauxpzXTyktNa8x97awm9_3X-3pycINA';
 
@@ -23,7 +28,7 @@ export class GooglemapComponent {
 
   markerArray: NGoogleMapService.IMarkerPoint[];
 
-  constructor(private locationService: LocationService,
+  constructor( // private locationService: LocationService,
               private googleMapLoaderService: GoogleMapLoaderService){
     console.log("GooglemapComponent");
     this.initMap();
@@ -59,8 +64,8 @@ export class GooglemapComponent {
   initMap() {
     this.googleMapLoaderService.load({key: this.key}).then((googleMaps: any) => {
       this.googleMapObj = new googleMaps.Map(document.getElementById('googlemap'), {
-        center: {lat: parseFloat(this.lat), lng: parseFloat(this.lng)},
-        zoom: parseInt(this.zoom)
+        center: {lat: this.location.latitude, lng: this.location.longitude},
+        zoom: this.zoom
       });
 
     }).catch((err: Object) => {

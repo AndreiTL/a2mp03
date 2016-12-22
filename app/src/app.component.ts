@@ -9,38 +9,43 @@ import IGoogleMapOptions = NGoogleMapService.IGoogleMapOptions;
   template: template
 })
 export class AppComponent  {
+  // googleMapOptions: IGoogleMapOptions;
 
-  googleMapOptions: IGoogleMapOptions;
   // Here you define how many town will be shown.
   amountTowns: string = '5';
+  zoom: number = 8;
 
-  getLocation: Promise<IGoogleMapOptions>;
+  getLocation: Promise<Coordinates>;
   
   constructor(private locationService: LocationService){
-    this.googleMapOptions = {
-      lat: 0,
-      lng: 0,
-      zoom: 8
-    };
+    // this.googleMapOptions = {
+    //   lat: 0,
+    //   lng: 0,
+    //   zoom: 8
+    // };
     // this.getLocation = this.locationService.getCurrentLocation;
-    this.getLocation = new Promise<IGoogleMapOptions>(
+    this.getLocation = new Promise<Coordinates>(
       (resolve, reject) => {
         // this.resolve = resolve;
         this.locationService.getCurrentLocation().then(
           (coordinate: Coordinates) => {
-            let opt: IGoogleMapOptions = {
-              lat: coordinate.latitude,
-              lng: coordinate.longitude,
-              zoom: 8
-            };
+            // let opt: IGoogleMapOptions = {
+            //   lat: coordinate.latitude,
+            //   lng: coordinate.longitude,
+            //   zoom: 8
+            // };
             // opt;
-            resolve(opt);
+            resolve(coordinate);
           },
           () => {
-            let opt: IGoogleMapOptions = {
-              lat: 10,
-              lng: 10,
-              zoom: 8
+            let opt: Coordinates = {
+              latitude: 30,
+              longitude: 30,
+              accuracy: 0,
+              altitude: null,
+              altitudeAccuracy: null,
+              heading: null,
+              speed: null
             };
             resolve(opt);
           }
