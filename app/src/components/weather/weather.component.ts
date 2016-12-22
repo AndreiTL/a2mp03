@@ -11,6 +11,7 @@ import {LocationService} from '../common/location.service'
 })
 export class WeatherComponent {
   @Input() amounttowns: string;
+  @Input() location: Coordinates;
   // @Output() updateMarkers: Function;
 
   API: string = `94c7919f6854ca11558382472a998f8f`;
@@ -32,11 +33,11 @@ export class WeatherComponent {
 
     console.log("WeatherComponent");
     this.townsTable = [];
-    locationService.getCurrentLocation().then(
-      (coordinate: Coordinates) => {
-        this.downloadWeatherInCircle(coordinate.latitude, coordinate.longitude, parseInt(this.amounttowns));
-      }
-    )
+    // locationService.getCurrentLocation().then(
+    //   (coordinate: Coordinates) => {
+    //     this.downloadWeatherInCircle(coordinate.latitude, coordinate.longitude, parseInt(this.amounttowns));
+    //   }
+    // )
   }
 
   private updateTableList(responseText: string){

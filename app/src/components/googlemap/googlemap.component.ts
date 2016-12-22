@@ -27,11 +27,11 @@ export class GooglemapComponent {
               private googleMapLoaderService: GoogleMapLoaderService){
     console.log("GooglemapComponent");
     this.initMap();
-    locationService.getCurrentLocation().then(
-      (coordinate: Coordinates) => {
-        this.setMapCenterAndZoom(coordinate.latitude, coordinate.longitude, 8);
-      }
-    )
+    // locationService.getCurrentLocation().then(
+    //   (coordinate: Coordinates) => {
+    //     this.setMapCenterAndZoom(coordinate.latitude, coordinate.longitude, 8);
+    //   }
+    // )
   }
 
   setMapCenterAndZoom(lat: number, lng: number, zoom: number){

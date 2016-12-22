@@ -1,6 +1,6 @@
 export const template: string = `
 <div class="appcontainer">
-    <googlemap></googlemap>
+    <googlemap [options]="this.getLocation | async"></googlemap>
     <weather [amounttowns]="this.amountTowns"></weather>     
 </div>
 `;
