@@ -35,12 +35,12 @@ export class GooglemapComponent {
               private googleMapLoaderService: GoogleMapLoaderService){
     console.log("GooglemapComponent");
 
-    this.location = {
-      latitude: 10,
-      longitude: 10
-    };
+    // this.location = {
+    //   latitude: 10,
+    //   longitude: 10
+    // };
 
-    this.initMap();
+    this.initMap(this.location);
     // locationService.getCurrentLocation().then(
     //   (coordinate: Coordinates) => {
     //     this.setMapCenterAndZoom(coordinate.latitude, coordinate.longitude, 8);
@@ -70,10 +70,10 @@ export class GooglemapComponent {
     })
   }
 
-  initMap() {
+  initMap(location: ILocation.ICoordinates) {
     this.googleMapLoaderService.load({key: this.key}).then((googleMaps: any) => {
       this.googleMapObj = new googleMaps.Map(document.getElementById('googlemap'), {
-        center: {lat: this.location.latitude, lng: this.location.longitude},
+        center: {lat: location.latitude, lng: location.longitude},
         zoom: this.zoom
       });
 

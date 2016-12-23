@@ -39,6 +39,11 @@ export class WeatherComponent {
     //     this.downloadWeatherInCircle(coordinate.latitude, coordinate.longitude, parseInt(this.amounttowns));
     //   }
     // )
+    // this.location = {
+    //   latitude: 30,
+    //   longitude: 10
+    // };
+
     this.downloadWeatherInCircle(this.location.latitude, this.location.longitude, parseInt(this.amounttowns));
   }
 
