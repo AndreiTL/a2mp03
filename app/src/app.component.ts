@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { template } from './app.tpl';
 import {LocationService} from "./components/common/location.service";
-import IGoogleMapOptions = NGoogleMapService.IGoogleMapOptions;
 
 @Component({
   selector: 'my-app',
@@ -15,7 +14,7 @@ export class AppComponent  {
   amountTowns: string = '5';
   zoom: number = 8;
 
-  getLocation: Promise<Coordinates>;
+  getLocation: Promise<ILocation.ICoordinates>;
   
   constructor(private locationService: LocationService){
     // this.googleMapOptions = {
@@ -24,11 +23,11 @@ export class AppComponent  {
     //   zoom: 8
     // };
     // this.getLocation = this.locationService.getCurrentLocation;
-    this.getLocation = new Promise<Coordinates>(
+    this.getLocation = new Promise<ILocation.ICoordinates>(
       (resolve, reject) => {
         // this.resolve = resolve;
         this.locationService.getCurrentLocation().then(
-          (coordinate: Coordinates) => {
+          (coordinate: ILocation.ICoordinates) => {
             // let opt: IGoogleMapOptions = {
             //   lat: coordinate.latitude,
             //   lng: coordinate.longitude,
@@ -38,14 +37,9 @@ export class AppComponent  {
             resolve(coordinate);
           },
           () => {
-            let opt: Coordinates = {
+            let opt: ILocation.ICoordinates = {
               latitude: 30,
-              longitude: 30,
-              accuracy: 0,
-              altitude: null,
-              altitudeAccuracy: null,
-              heading: null,
-              speed: null
+              longitude: 30
             };
             resolve(opt);
           }

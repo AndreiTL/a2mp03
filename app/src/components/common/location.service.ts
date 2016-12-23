@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
+
 @Injectable()
 export class LocationService {
-  getCurrentLocation(): Promise<Coordinates> {
+  getCurrentLocation(): Promise<ILocation.ICoordinates> {
     return new Promise((resolve, reject): void => {
       let options = {
         enableHighAccuracy: true,
@@ -10,7 +11,7 @@ export class LocationService {
       };
 
       function success(pos: Position): PositionCallback {
-        let crd: Coordinates = pos.coords;
+        let crd: ILocation.ICoordinates = <ILocation.ICoordinates>pos.coords;
         // this.coordinates = crd;
         console.log('Your current position is:');
         console.log('Latitude : ' + crd.latitude);

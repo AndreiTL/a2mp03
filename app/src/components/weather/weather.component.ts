@@ -2,16 +2,16 @@ import {Component, Input, NgZone} from '@angular/core';
 import {template} from './weather.tpl';
 
 import {RestService} from '../common/rest.service';
-import {LocationService} from '../common/location.service'
+// import {LocationService} from '../common/location.service'
 
 @Component({
   selector: 'weather',
   template: template,
-  providers: [LocationService, RestService]
+  providers: [/*LocationService,*/ RestService]
 })
 export class WeatherComponent {
   @Input() amounttowns: string;
-  @Input() location: Coordinates;
+  @Input() location: ILocation.ICoordinates;
 
   // @Output() updateMarkers: Function;
 

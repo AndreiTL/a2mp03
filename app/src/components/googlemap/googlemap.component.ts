@@ -1,22 +1,22 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input } from '@angular/core';
 import {template} from './googlemap.tpl';
 
-import {LocationService} from '../common/location.service';
+// import {LocationService} from '../common/location.service';
 
 import {GoogleMapLoaderService} from '../common/google_maps_loader.service';
-
-// import {Coordinates} from 'typescript/lib/lib.es6.d.ts';
+//import {DetectChangesVars} from "@angular/compiler/src/view_compiler/constants";
 
 @Component({
   selector: 'googlemap',
   template: template,
-  providers: [ LocationService, GoogleMapLoaderService]
+  providers: [ /*LocationService,*/ GoogleMapLoaderService]
 })
 export class GooglemapComponent {
   // @Input() options: NGoogleMapService.IGoogleMapOptions ;
   // @Input() coordinates: Coordinates;
-  @Input() location: Coordinates;
+  @Input() location: ILocation.ICoordinates;
   @Input() zoom: number = 1;
+  // @Output() update: Function;
 
   // lat: string = '0.0';
   // lng: string = '0.0';
@@ -26,11 +26,20 @@ export class GooglemapComponent {
 
   googleMapObj: google.maps.Map;
 
+  // location: ILocation.ICoordinates;
+
   markerArray: NGoogleMapService.IMarkerPoint[];
 
   constructor( // private locationService: LocationService,
+              // private cd: DetectChangesVars,
               private googleMapLoaderService: GoogleMapLoaderService){
     console.log("GooglemapComponent");
+
+    this.location = {
+      latitude: 10,
+      longitude: 10
+    };
+
     this.initMap();
     // locationService.getCurrentLocation().then(
     //   (coordinate: Coordinates) => {
