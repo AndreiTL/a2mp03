@@ -10,10 +10,11 @@ import {GoogleMapLoaderService} from './components/common/google_maps_loader.ser
 import {LocationService} from './components/common/location.service';
 import {MarkersService} from './components/common/markers.service';
 import {RestService} from './components/common/rest.service';
+import {TemperatureCelciumPipe} from "./components/common/pipes/temperature.pipe";
 
 @NgModule({
   imports:      [ BrowserModule ],
-  declarations: [ AppComponent, GooglemapComponent, WeatherComponent ],
+  declarations: [ AppComponent, GooglemapComponent, WeatherComponent, TemperatureCelciumPipe ],
   providers: [RestService, MarkersService, LocationService, GoogleMapLoaderService],
   bootstrap:    [ AppComponent ]
 })

@@ -12,7 +12,7 @@ export const template: string = `
                     <td></td>
                 </tr>
                 <tr>
-                    <td><span>Temperature: </span><span>{{town.main.temp-273.15}}</span></td>
+                    <td><span>Temperature: </span><span>{{town.main.temp | temperatureCelciumPipe}}</span></td>
                     <td><span>Humidity: </span><span>{{town.main.humidity||''}}</span></td>
                     <td><span>Wind: </span><span>{{town.wind.speed||''}}</span></td>
                 </tr>

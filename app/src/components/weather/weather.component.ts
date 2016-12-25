@@ -6,7 +6,7 @@ import {RestService} from '../common/rest.service';
 @Component({
   selector: 'weather',
   template: template,
-  providers: [/*LocationService,*/ RestService]
+  providers: [RestService]
 })
 export class WeatherComponent {
   @Input() location: ILocation.ICoordinates;

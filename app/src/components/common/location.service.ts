@@ -6,7 +6,7 @@ export class LocationService {
     return new Promise((resolve, reject): void => {
       let options = {
         enableHighAccuracy: true,
-        timeout: 5000,
+        timeout: 15000,
         maximumAge: 0
       };
 
