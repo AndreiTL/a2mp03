@@ -30,7 +30,6 @@ export class WeatherComponent {
 
     console.log("WeatherComponent");
     this.townsTable = [];
-    console.log(this.location);
   }
 
   ngAfterContentInit() {
@@ -62,7 +61,4 @@ export class WeatherComponent {
         }
     );
   }
-  // getWeatherObject(){
-  //   return this.weatherObject;
-  // }
 }

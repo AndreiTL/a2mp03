@@ -8,17 +8,14 @@ import {LocationService} from "./components/common/location.service";
   template: template
 })
 export class AppComponent  {
-
   // Here you define how many town will be shown.
   amountTowns: string = '5';
   zoom: number = 8;
   enableChild: boolean = false;
-
   coordinates: ILocation.ICoordinates;
   
   constructor(private locationService: LocationService,
               private zone: NgZone){
-
     this.locationService.getCurrentLocation().then(
       (coordinate: ILocation.ICoordinates) => {
         this.coordinates = coordinate;

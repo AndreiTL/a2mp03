@@ -22,12 +22,8 @@ export class GooglemapComponent {
 
   markerArray: NGoogleMapService.IMarkerPoint[];
 
-  constructor( // private locationService: LocationService,
-              // private cd: DetectChangesVars,
-              private googleMapLoaderService: GoogleMapLoaderService){
+  constructor(private googleMapLoaderService: GoogleMapLoaderService){
     console.log("GooglemapComponent");
-
-    this.initMap(this.location);
   }
 
   ngAfterContentInit() {
