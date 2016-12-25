@@ -2,7 +2,6 @@ import {Component, Input, NgZone} from '@angular/core';
 import {template} from './weather.tpl';
 
 import {RestService} from '../common/rest.service';
-// import {LocationService} from '../common/location.service'
 
 @Component({
   selector: 'weather',
@@ -10,10 +9,8 @@ import {RestService} from '../common/rest.service';
   providers: [/*LocationService,*/ RestService]
 })
 export class WeatherComponent {
-  @Input() amounttowns: string;
   @Input() location: ILocation.ICoordinates;
-
-  // @Output() updateMarkers: Function;
+  @Input() amounttowns: string;
 
   API: string = `94c7919f6854ca11558382472a998f8f`;
   // cnt: string = '10';
@@ -28,22 +25,15 @@ export class WeatherComponent {
 
   constructor(
       private zone: NgZone,
-      // private locationService: LocationService,
       private restService: RestService
     ){
 
     console.log("WeatherComponent");
     this.townsTable = [];
-    // locationService.getCurrentLocation().then(
-    //   (coordinate: Coordinates) => {
-    //     this.downloadWeatherInCircle(coordinate.latitude, coordinate.longitude, parseInt(this.amounttowns));
-    //   }
-    // )
-    // this.location = {
-    //   latitude: 30,
-    //   longitude: 10
-    // };
+    console.log(this.location);
+  }
 
+  ngAfterContentInit() {
     this.downloadWeatherInCircle(this.location.latitude, this.location.longitude, parseInt(this.amounttowns));
   }
 

@@ -1,7 +1,6 @@
 declare namespace ILocation {
   export function getCurrentLocation(
-
-  ): Promise<Coordinates>;
+  ): Promise<ILocation.ICoordinates>;
 
   export interface ICoordinates {
     accuracy?: number;

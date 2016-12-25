@@ -10,10 +10,8 @@ export class RestService {
       xhr.onreadystatechange = function() {
         if (this.readyState != 4) return;
         if (this.status != 200) {
-          // callBack(null);
           reject(null);
         } else {
-          // callBack(this.responseText, context);
           resolve(this.responseText);
         }
       }

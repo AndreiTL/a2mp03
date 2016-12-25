@@ -12,7 +12,6 @@ export class LocationService {
 
       function success(pos: Position): PositionCallback {
         let crd: ILocation.ICoordinates = <ILocation.ICoordinates>pos.coords;
-        // this.coordinates = crd;
         console.log('Your current position is:');
         console.log('Latitude : ' + crd.latitude);
         console.log('Longitude: ' + crd.longitude);

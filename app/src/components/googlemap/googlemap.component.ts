@@ -1,10 +1,7 @@
 import {Component, Input } from '@angular/core';
 import {template} from './googlemap.tpl';
 
-// import {LocationService} from '../common/location.service';
-
 import {GoogleMapLoaderService} from '../common/google_maps_loader.service';
-//import {DetectChangesVars} from "@angular/compiler/src/view_compiler/constants";
 
 @Component({
   selector: 'googlemap',
@@ -12,11 +9,8 @@ import {GoogleMapLoaderService} from '../common/google_maps_loader.service';
   providers: [ /*LocationService,*/ GoogleMapLoaderService]
 })
 export class GooglemapComponent {
-  // @Input() options: NGoogleMapService.IGoogleMapOptions ;
-  // @Input() coordinates: Coordinates;
   @Input() location: ILocation.ICoordinates;
   @Input() zoom: number = 1;
-  // @Output() update: Function;
 
   // lat: string = '0.0';
   // lng: string = '0.0';
@@ -26,8 +20,6 @@ export class GooglemapComponent {
 
   googleMapObj: google.maps.Map;
 
-  // location: ILocation.ICoordinates;
-
   markerArray: NGoogleMapService.IMarkerPoint[];
 
   constructor( // private locationService: LocationService,
@@ -35,17 +27,11 @@ export class GooglemapComponent {
               private googleMapLoaderService: GoogleMapLoaderService){
     console.log("GooglemapComponent");
 
-    // this.location = {
-    //   latitude: 10,
-    //   longitude: 10
-    // };
-
     this.initMap(this.location);
-    // locationService.getCurrentLocation().then(
-    //   (coordinate: Coordinates) => {
-    //     this.setMapCenterAndZoom(coordinate.latitude, coordinate.longitude, 8);
-    //   }
-    // )
+  }
+
+  ngAfterContentInit() {
+    this.initMap(this.location);
   }
 
   setMapCenterAndZoom(lat: number, lng: number, zoom: number){
@@ -76,12 +62,10 @@ export class GooglemapComponent {
         center: {lat: location.latitude, lng: location.longitude},
         zoom: this.zoom
       });
-
     }).catch((err: Object) => {
       console.error(err);
       alert('Cann\'t load google map!');
     });
   }
-
 
 }
