@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 @Injectable()
 export class GoogleMapLoaderService {
 
-  load(options: IGoogleMapsLoaderService.ILoadOptions): Promise<google.maps.Map>{
+  load(options: IGoogleMapsLoaderService.ILoadOptions): Promise<google.maps.Map> {
     const callbackName = '__googleMapsApiOnLoadCallback';
 
     return new Promise((resolve, reject) => {
@@ -14,12 +14,22 @@ export class GoogleMapLoaderService {
       // Prepare the `script` tag to be inserted into the page.
       const scriptElement = document.createElement('script');
       const params = ['callback=' + callbackName];
-      if (options.client) params.push('client=' + options.client);
-      if (options.key) params.push('key=' + options.key);
-      if (options.language) params.push('language=' + options.language);
+      if (options.client) {
+        params.push('client=' + options.client);
+      }
+      if (options.key) {
+        params.push('key=' + options.key);
+      }
+      if (options.language) {
+        params.push('language=' + options.language);
+      }
       options.libraries = [].concat(options.libraries); // Ensure that `libraries` is an array
-      if (options.libraries.length) params.push('libraries=' + options.libraries.join(','));
-      if (options.v) params.push('v=' + options.v);
+      if (options.libraries.length) {
+        params.push('libraries=' + options.libraries.join(','));
+      }
+      if (options.v) {
+        params.push('v=' + options.v);
+      }
       scriptElement.src = 'https://maps.googleapis.com/maps/api/js?' + params.join('&');
 
       // Timeout if necessary.

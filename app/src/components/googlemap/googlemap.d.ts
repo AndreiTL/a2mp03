@@ -6,7 +6,7 @@ declare namespace NGoogleMapService {
     text: string;
   }
 
-  export interface IGoogleMapOptions{
+  export interface IGoogleMapOptions {
     lng: number;
     lat: number;
     zoom: number;
