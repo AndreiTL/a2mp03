@@ -10,7 +10,7 @@ declare namespace Weather {
     temp_max: number;
     humidity: number;
   }
-  export interface IWind{
+  export interface IWind {
     speed: number;
     deg: number;
   }
@@ -31,19 +31,19 @@ declare namespace Weather {
     name: string;
     coord: ICoordinate;
     main: IMainWeather;
-    dt:number;
+    dt: number;
     wind: IWind;
     sys: ISys;
     clouds: IClouds;
     weather: IWeather[];
   }
-  export interface IWeatherResponse{
+  export interface IWeatherResponse {
     message: string;
     cod: number;
     count: number;
     list: ITownWeather[];
   }
-  export interface IWeatherOptions{
+  export interface IWeatherOptions {
     lng: number;
     lat: number;
     cnt: number;

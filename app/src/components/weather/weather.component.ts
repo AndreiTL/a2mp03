@@ -26,18 +26,18 @@ export class WeatherComponent {
   constructor(
       private zone: NgZone,
       private restService: RestService
-    ){
+    ) {
 
-    console.log("WeatherComponent");
+    console.log('WeatherComponent');
     this.townsTable = [];
   }
 
   ngAfterContentInit() {
-    this.downloadWeatherInCircle(this.location.latitude, this.location.longitude, parseInt(this.amounttowns));
+    this.downloadWeatherInCircle(this.location.latitude, this.location.longitude, parseInt(this.amounttowns, 10));
   }
 
-  private updateTableList(responseText: string){
-    if (responseText !== null){
+  private updateTableList(responseText: string) {
+    if (responseText !== null) {
       this.weatherObject = <Weather.IWeatherResponse> JSON.parse(responseText);
       this.townsTable = this.weatherObject.list;
       console.log(this);
@@ -49,8 +49,8 @@ export class WeatherComponent {
     }
   }
 
-  downloadWeatherInCircle(latitude: number, longitude: number, count: number){
-    let urlTemplate: string = `http://api.openweathermap.org/data/2.5/find?lat=${latitude}&lon=${longitude}&cnt=${count}&appid=${this.API}`;
+  downloadWeatherInCircle(latitude: number, longitude: number, count: number) {
+    let urlTemplate = `http://api.openweathermap.org/data/2.5/find?lat=${latitude}&lon=${longitude}&cnt=${count}&appid=${this.API}`;
     this.restService.sendRequest(this.typeRequest, urlTemplate, this.async, '').then(
       (responseText: string) => {
         this.updateTableList(responseText);

@@ -22,15 +22,15 @@ export class GooglemapComponent {
 
   markerArray: NGoogleMapService.IMarkerPoint[];
 
-  constructor(private googleMapLoaderService: GoogleMapLoaderService){
-    console.log("GooglemapComponent");
+  constructor(private googleMapLoaderService: GoogleMapLoaderService) {
+    console.log('GooglemapComponent');
   }
 
   ngAfterContentInit() {
     this.initMap(this.location);
   }
 
-  setMapCenterAndZoom(lat: number, lng: number, zoom: number){
+  setMapCenterAndZoom(lat: number, lng: number, zoom: number) {
     let mapOptions: google.maps.MapOptions = {
       center: {
         lat: lat,
@@ -41,19 +41,20 @@ export class GooglemapComponent {
     this.googleMapObj.setOptions(mapOptions);
   }
 
-  setMarkers(markerSetArray: NGoogleMapService.IMarkerPoint[]){
+  setMarkers(markerSetArray: NGoogleMapService.IMarkerPoint[]) {
     this.markerArray = markerSetArray;
-    markerSetArray.forEach((value: NGoogleMapService.IMarkerPoint, index: number, array: NGoogleMapService.IMarkerPoint[]) => {
+    markerSetArray.forEach((value: NGoogleMapService.IMarkerPoint) => {
       new google.maps.Marker({
         position: {lat: value.lat, lng: value.lng},
         map: this.googleMapObj,
         title: value.text
       });
-    })
+    });
   }
 
   initMap(location: ILocation.ICoordinates) {
     this.googleMapLoaderService.load({key: this.key}).then((googleMaps: any) => {
+      //noinspection TsLint
       this.googleMapObj = new googleMaps.Map(document.getElementById('googlemap'), {
         center: {lat: location.latitude, lng: location.longitude},
         zoom: this.zoom
@@ -63,5 +64,4 @@ export class GooglemapComponent {
       alert('Cann\'t load google map!');
     });
   }
-
 }

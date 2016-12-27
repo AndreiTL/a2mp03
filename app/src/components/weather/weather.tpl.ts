@@ -1,4 +1,4 @@
-export const template: string = `
+export const template = `
 <div>
     <div>Weather in towns: </div>
       

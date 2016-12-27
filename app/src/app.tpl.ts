@@ -1,4 +1,4 @@
-export const template: string = `
+export const template = `
 <div class="appcontainer">
     <div *ngIf="enableChild">
         <weather [amounttowns]="amountTowns" [location]="coordinates"></weather>     
