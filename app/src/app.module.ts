@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent }  from './app.component';
 
+import {HeaderComponent} from './components/header/header.component';
+import {FooterComponent} from './components/footer/footer.component';
+
 import { GooglemapComponent } from './components/googlemap/googlemap.component';
 import { WeatherComponent } from './components/weather/weather.component';
 
@@ -18,6 +21,8 @@ import {WindDirectionTextPipe} from './components/common/pipes/winddirectiontext
   imports:      [ BrowserModule ],
   declarations: [
     AppComponent,
+    HeaderComponent,
+    FooterComponent,
     GooglemapComponent,
     WeatherComponent,
     TemperatureCelciumPipe,
