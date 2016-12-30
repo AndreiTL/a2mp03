@@ -11,6 +11,7 @@ import { WeatherComponent } from './components/weather/weather.component';
 
 import {GoogleMapLoaderService} from './components/common/google_maps_loader.service';
 import {LocationService} from './components/common/location.service';
+import {StorageService} from './components/common/storage.service';
 import {MarkersService} from './components/common/markers.service';
 import {RestService} from './components/common/rest.service';
 
@@ -28,7 +29,12 @@ import {WindDirectionTextPipe} from './components/common/pipes/winddirectiontext
     TemperatureCelciumPipe,
     WindDirectionTextPipe
   ],
-  providers: [RestService, MarkersService, LocationService, GoogleMapLoaderService],
+  providers: [
+    RestService,
+    MarkersService,
+    StorageService,
+    LocationService,
+    GoogleMapLoaderService],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

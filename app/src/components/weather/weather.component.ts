@@ -18,7 +18,7 @@ export class WeatherComponent {
   // url: string = `http://api.openweathermap.org/data/2.5/weather?id=625144&APPID=${this.API}`; // Minsk id
   typeRequest: string = 'GET';
   async: boolean = true;
-  weatherObject: Weather.IWeatherResponse;
+  weatherObject: Weather.IWeatherObject;
 
   trigLoad: boolean = false;
   townsTable: Weather.ITownWeather[] ;
@@ -38,7 +38,7 @@ export class WeatherComponent {
 
   private updateTableList(responseText: string) {
     if (responseText !== null) {
-      this.weatherObject = <Weather.IWeatherResponse> JSON.parse(responseText);
+      this.weatherObject = <Weather.IWeatherObject> JSON.parse(responseText);
       this.townsTable = this.weatherObject.list;
       console.log(this);
       this.trigLoad = true;

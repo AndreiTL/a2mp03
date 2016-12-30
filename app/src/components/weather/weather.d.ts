@@ -37,7 +37,7 @@ declare namespace Weather {
     clouds: IClouds;
     weather: IWeather[];
   }
-  export interface IWeatherResponse {
+  export interface IWeatherObject {
     message: string;
     cod: number;
     count: number;
