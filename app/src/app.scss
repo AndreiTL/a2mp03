@@ -8,8 +8,21 @@ html, body {
   height: 100%;
   width: 100%;
 }
-.appcontainer{
+.appcontainer {
   margin: 5px auto;
-  max-width: 600px;
+  max-width: 800px;
   height: 100%;
+}
+
+.weatherbox {
+  min-height: 400px;
+  width: 400px;
+  float: left;
+  padding: 2px;
+}
+
+.googlemapbox {
+  width: 400px;
+  float: left;
+  padding: 0;
 }
