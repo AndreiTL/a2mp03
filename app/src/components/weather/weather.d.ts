@@ -43,7 +43,7 @@ declare namespace Weather {
     count: number;
     list: ITownWeather[];
   }
-  export interface IWeatherOptions {
+  export interface IWeatherParams {
     lng: number;
     lat: number;
     cnt: number;
