@@ -17,8 +17,9 @@ html, body {
 .weatherbox {
   min-height: 400px;
   width: 400px;
-  float: left;
   padding: 2px;
+  box-sizing: border-box;
+  float: left;
 }
 
 .googlemapbox {

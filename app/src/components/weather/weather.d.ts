@@ -44,8 +44,8 @@ declare namespace Weather {
     list: ITownWeather[];
   }
   export interface IWeatherParams {
-    lng: number;
-    lat: number;
-    cnt: number;
+    longitude: number;
+    latitude: number;
+    count: number;
   }
 }

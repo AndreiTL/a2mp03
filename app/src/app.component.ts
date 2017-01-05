@@ -19,7 +19,6 @@ export class AppComponent  {
     this.locationService.getCurrentLocation().then(
       (coordinate: ILocation.ICoordinates) => {
         this.coordinates = coordinate;
-        // console.log(this.coordinates)
       },
       () => {
         console.log('Cann\'t get coordinates. Load default (30,30).');
@@ -34,4 +33,8 @@ export class AppComponent  {
       this.enableChild = true;
     });
   }
+
+  // updateLastTime(time: number): void {
+  //
+  // }
 }

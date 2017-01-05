@@ -12,10 +12,6 @@ export class GooglemapComponent {
   @Input() location: ILocation.ICoordinates;
   @Input() zoom: number = 1;
 
-  // lat: string = '0.0';
-  // lng: string = '0.0';
-  // zoom: string = '1';
-
   key: string = 'AIzaSyDdauxpzXTyktNa8x97awm9_3X-3pycINA';
 
   googleMapObj: google.maps.Map;
@@ -23,7 +19,7 @@ export class GooglemapComponent {
   markerArray: NGoogleMapService.IMarkerPoint[];
 
   constructor(private googleMapLoaderService: GoogleMapLoaderService) {
-    console.log('GooglemapComponent');
+    console.log('GooglemapComponent init.');
   }
 
   ngAfterContentInit() {
@@ -54,7 +50,7 @@ export class GooglemapComponent {
 
   initMap(location: ILocation.ICoordinates) {
     this.googleMapLoaderService.load({key: this.key}).then((googleMaps: any) => {
-      //noinspection TsLint
+      // noinspection TsLint
       this.googleMapObj = new googleMaps.Map(document.getElementById('googlemap'), {
         center: {lat: location.latitude, lng: location.longitude},
         zoom: this.zoom
