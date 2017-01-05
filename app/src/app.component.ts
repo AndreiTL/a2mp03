@@ -21,11 +21,11 @@ export class AppComponent  {
         this.coordinates = coordinate;
       },
       () => {
-        console.log('Cann\'t get coordinates. Load default (30,30).');
-        alert('Cann\'t get coordinates. Load default (30,30).');
+        console.log('Cann\'t get coordinates. Load default (32,32).');
+        alert('Cann\'t get coordinates. Load default (32,32).');
         this.coordinates = {
-          longitude: 30,
-          latitude: 30
+          longitude: 32,
+          latitude: 32
         };
       }
     ).then( () => {

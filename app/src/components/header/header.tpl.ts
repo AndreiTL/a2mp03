@@ -1,7 +1,7 @@
 export const template = `
 <div class="header">
-    <div>
-        <span>Last update: </span>
+    <div class="appcontainer">
+        <span>Last update: </span><span>{{lastUpddateTime| date}}</span>
     </div>    
 </div>
 `;

@@ -5,6 +5,8 @@ import {RestService} from '../common/rest.service';
 @Injectable()
 export class WeatherModelService {
 
+  callFunctionsArray: Function[];
+
   // 10 minutes
   maxTimeValide: number = 10 * 60 * 1000;
 
@@ -20,7 +22,7 @@ export class WeatherModelService {
   constructor(private storageService: StorageService,
           private restService: RestService
   ) {
-
+    this.callFunctionsArray = [];
   }
 
   setWeatherParams(options: Weather.IWeatherParams) {
@@ -46,7 +48,8 @@ export class WeatherModelService {
             latitude: this.latitude,
             count: this.count})
           );
-
+          // call for model update
+          this.callFunctionsInArray();
           resolve(weatherObj);
         },
         () => {
@@ -62,11 +65,11 @@ export class WeatherModelService {
             params.longitude === this.longitude &&
             params.count === this.count
           ) {
-          // case: in storage are valid data then load from storage
-          console.log('Valid in storage. Load from storage.');
-          let weatherString = this.storageService.getData('weather');
-          weather = <Weather.IWeather> JSON.parse(weatherString);
-          resolve(weather);
+            // case: in storage are valid data then load from storage
+            console.log('Valid in storage. Load from storage.');
+            let weatherString = this.storageService.getData('weather');
+            weather = <Weather.IWeather> JSON.parse(weatherString);
+            resolve(weather);
         } else {
           // case: in storage are expired data then load from internet
           console.log('Expired or invalid in storage. Load from internet.');
@@ -79,6 +82,8 @@ export class WeatherModelService {
                 latitude: this.latitude,
                 count: this.count})
               );
+              // call for model update
+              this.callFunctionsInArray();
               resolve(weatherObj);
             },
             () => {
@@ -89,7 +94,11 @@ export class WeatherModelService {
     });
   }
 
-  loadWeather(): Promise<Weather.IWeather> {
+  getLastUpdateTime(): number {
+    return parseInt(this.storageService.getData('lastUpdateTime'), 10);
+  }
+
+  private loadWeather(): Promise<Weather.IWeather> {
     return new Promise((resolve, reject): void => {
       let weather: Weather.IWeather;
 
@@ -109,4 +118,15 @@ export class WeatherModelService {
       );
     });
   }
+
+  addListener(callFunction: Function) {
+    this.callFunctionsArray.push(callFunction);
+  }
+
+  private callFunctionsInArray() {
+    this.callFunctionsArray.forEach( (value: Function) => {
+      value();
+    });
+  }
+
 }
