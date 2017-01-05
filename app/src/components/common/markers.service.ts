@@ -8,7 +8,7 @@ export class MarkersService {
       sampleArray.push({
         lng: value.coord.lon,
         lat: value.coord.lat,
-        text: value.name + ': ' + String(Math.round(value.main.temp - 273.15)),
+        text: value.name + ': ' + String(Math.round((value.main.temp - 273.15) * 10) / 10),
         name: value.name
       });
     });

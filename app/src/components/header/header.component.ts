@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {template} from './header.tpl';
-import {WeatherModelService} from '../weather/weather_model.service';
+import {WeatherModelService} from '../common/weather_model.service';
 
 @Component({
   selector: 'my-header',
@@ -12,13 +12,17 @@ export class HeaderComponent {
   lastUpddateTime: number;
 
   constructor(
-    private weatherModelService: WeatherModelService
+    private weatherModelService: WeatherModelService,
+    private zone: NgZone
   ) {
-    this.lastUpddateTime = weatherModelService.getLastUpdateTime();
+    weatherModelService.addListener(this.updateView.bind(this));
+    this.lastUpddateTime = weatherModelService.getLastUpdateTime() || 0;
   }
 
   updateView(): void {
-
+    // console.log('header zone run');
+    this.lastUpddateTime = this.weatherModelService.getLastUpdateTime();
+    this.zone.run(() => {});
   }
 
 }

@@ -14,7 +14,7 @@ import {LocationService} from './components/common/location.service';
 import {StorageService} from './components/common/storage.service';
 import {MarkersService} from './components/common/markers.service';
 import {RestService} from './components/common/rest.service';
-import {WeatherModelService} from './components/weather/weather_model.service';
+import {WeatherModelService} from './components/common/weather_model.service';
 
 import {TemperatureCelciumPipe} from './components/common/pipes/temperature.pipe';
 import {WindDirectionTextPipe} from './components/common/pipes/winddirectiontext.pipe';

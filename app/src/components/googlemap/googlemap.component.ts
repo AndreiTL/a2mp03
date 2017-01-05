@@ -1,12 +1,14 @@
-import {Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {template} from './googlemap.tpl';
 
 import {GoogleMapLoaderService} from '../common/google_maps_loader.service';
+import {WeatherModelService} from '../common/weather_model.service';
+import {MarkersService} from '../common/markers.service';
 
 @Component({
   selector: 'googlemap',
   template: template,
-  providers: [ /*LocationService,*/ GoogleMapLoaderService]
+  providers: [ GoogleMapLoaderService ]
 })
 export class GooglemapComponent {
   @Input() location: ILocation.ICoordinates;
@@ -18,8 +20,13 @@ export class GooglemapComponent {
 
   markerArray: NGoogleMapService.IMarkerPoint[];
 
-  constructor(private googleMapLoaderService: GoogleMapLoaderService) {
+  constructor(private googleMapLoaderService: GoogleMapLoaderService,
+              // private zone: NgZone,
+              private weatherModelService: WeatherModelService,
+              private markersService: MarkersService
+  ) {
     console.log('GooglemapComponent init.');
+    weatherModelService.addListener(this.updateView.bind(this));
   }
 
   ngAfterContentInit() {
@@ -59,5 +66,12 @@ export class GooglemapComponent {
       console.error(err);
       alert('Cann\'t load google map!');
     });
+  }
+
+  updateView(): void {
+    // console.log('googleComponent zone run');
+    this.markerArray = this.markersService.processMarkers(this.weatherModelService.getTownsWeather());
+    // this.zone.run(() => {});
+    this.setMarkers(this.markerArray);
   }
 }

@@ -1,7 +1,7 @@
 import {Component, Input, NgZone} from '@angular/core';
 import {template} from './weather.tpl';
 
-import {WeatherModelService} from './weather_model.service';
+import {WeatherModelService} from '../common/weather_model.service';
 
 @Component({
   selector: 'weather',
@@ -36,7 +36,7 @@ export class WeatherComponent {
         this.townsTable = this.weatherObject.list;
       },
       () => {
-        console.log('Cann\'t update table list!  Input parameter is empty!');
+        console.log('Cann\'t update table list! Input parameter is empty!');
         alert('Cann\'t update table list! Input parameter is empty!');
       }
     ).then( () => {

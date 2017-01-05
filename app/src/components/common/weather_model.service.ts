@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import {StorageService} from '../common/storage.service';
-import {RestService} from '../common/rest.service';
+import {StorageService} from './storage.service';
+import {RestService} from './rest.service';
 
 @Injectable()
 export class WeatherModelService {
 
   callFunctionsArray: Function[];
+  weatherObject: Weather.IWeatherObject;
 
   // 10 minutes
   maxTimeValide: number = 10 * 60 * 1000;
@@ -33,16 +34,17 @@ export class WeatherModelService {
 
   getWeatherInCircle(): Promise<Weather.IWeatherObject> {
     return new Promise((resolve, reject): void => {
-      let weather: Weather.IWeather;
+      // let weather: Weather.IWeather;
       let lastUpdateTimeString: string = this.storageService.getData('lastUpdateTime');
       let lastUpdateTime: number;
       if (!lastUpdateTimeString) {
         // case: first load
         console.log('Nothing in storage. Load from internet.');
-        this.loadWeather().then((weatherObj: Weather.IWeather) => {
+        this.loadWeather().then((weatherObj: Weather.IWeatherObject) => {
           lastUpdateTime = Date.now();
+          this.weatherObject = weatherObj;
           this.storageService.setData('lastUpdateTime', JSON.stringify(lastUpdateTime));
-          this.storageService.setData('weather', JSON.stringify(weatherObj));
+          this.storageService.setData('weather', JSON.stringify(this.weatherObject));
           this.storageService.setData('params', JSON.stringify({
             longitude: this.longitude,
             latitude: this.latitude,
@@ -50,7 +52,7 @@ export class WeatherModelService {
           );
           // call for model update
           this.callFunctionsInArray();
-          resolve(weatherObj);
+          resolve(this.weatherObject);
         },
         () => {
           reject();
@@ -68,15 +70,19 @@ export class WeatherModelService {
             // case: in storage are valid data then load from storage
             console.log('Valid in storage. Load from storage.');
             let weatherString = this.storageService.getData('weather');
-            weather = <Weather.IWeather> JSON.parse(weatherString);
-            resolve(weather);
+            this.weatherObject = <Weather.IWeatherObject> JSON.parse(weatherString);
+            // call for model update
+            // this.callFunctionsInArray();
+            // setTimeout(this.callFunctionsInArray(), 500);
+            resolve(this.weatherObject);
         } else {
           // case: in storage are expired data then load from internet
           console.log('Expired or invalid in storage. Load from internet.');
-          this.loadWeather().then((weatherObj: Weather.IWeather) => {
+          this.loadWeather().then((weatherObj: Weather.IWeatherObject) => {
               lastUpdateTime = Date.now();
+              this.weatherObject = weatherObj;
               this.storageService.setData('lastUpdateTime', JSON.stringify(lastUpdateTime));
-              this.storageService.setData('weather', JSON.stringify(weatherObj));
+              this.storageService.setData('weather', JSON.stringify(this.weatherObject));
               this.storageService.setData('params', JSON.stringify({
                 longitude: this.longitude,
                 latitude: this.latitude,
@@ -84,7 +90,7 @@ export class WeatherModelService {
               );
               // call for model update
               this.callFunctionsInArray();
-              resolve(weatherObj);
+              resolve(this.weatherObject);
             },
             () => {
               reject();
@@ -98,16 +104,20 @@ export class WeatherModelService {
     return parseInt(this.storageService.getData('lastUpdateTime'), 10);
   }
 
-  private loadWeather(): Promise<Weather.IWeather> {
+  getTownsWeather(): Weather.ITownWeather[] {
+    return this.weatherObject.list;
+  }
+
+  private loadWeather(): Promise<Weather.IWeatherObject> {
     return new Promise((resolve, reject): void => {
-      let weather: Weather.IWeather;
+      let weather: Weather.IWeatherObject;
 
       let urlTemplate = `http://api.openweathermap.org/data/2.5/find?lat=` +
         `${this.latitude}&lon=${this.longitude}&cnt=${this.count}&appid=${this.API}`;
 
       this.restService.sendRequest(this.typeRequest, urlTemplate, this.async, '').then(
         (responseText: string) => {
-          weather = <Weather.IWeather> JSON.parse(responseText);
+          weather = <Weather.IWeatherObject> JSON.parse(responseText);
           resolve(weather);
         },
         () => {
@@ -119,6 +129,7 @@ export class WeatherModelService {
     });
   }
 
+  // to deliver changes to other components
   addListener(callFunction: Function) {
     this.callFunctionsArray.push(callFunction);
   }
