@@ -72,8 +72,7 @@ export class WeatherModelService {
             let weatherString = this.storageService.getData('weather');
             this.weatherObject = <Weather.IWeatherObject> JSON.parse(weatherString);
             // call for model update
-            // this.callFunctionsInArray();
-            // setTimeout(this.callFunctionsInArray(), 500);
+            this.callFunctionsInArray();
             resolve(this.weatherObject);
         } else {
           // case: in storage are expired data then load from internet

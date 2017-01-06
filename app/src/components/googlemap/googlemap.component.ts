@@ -17,7 +17,7 @@ export class GooglemapComponent {
   key: string = 'AIzaSyDdauxpzXTyktNa8x97awm9_3X-3pycINA';
 
   googleMapObj: google.maps.Map;
-
+  inLoading: boolean;
   markerArray: NGoogleMapService.IMarkerPoint[];
 
   constructor(private googleMapLoaderService: GoogleMapLoaderService,
@@ -26,6 +26,8 @@ export class GooglemapComponent {
               private markersService: MarkersService
   ) {
     console.log('GooglemapComponent init.');
+    this.inLoading = true;
+    this.markerArray = [];
     weatherModelService.addListener(this.updateView.bind(this));
   }
 
@@ -62,6 +64,10 @@ export class GooglemapComponent {
         center: {lat: location.latitude, lng: location.longitude},
         zoom: this.zoom
       });
+      this.inLoading = false;
+      if (this.markerArray.length > 0) {
+        this.setMarkers(this.markerArray);
+      }
     }).catch((err: Object) => {
       console.error(err);
       alert('Cann\'t load google map!');
@@ -69,9 +75,9 @@ export class GooglemapComponent {
   }
 
   updateView(): void {
-    // console.log('googleComponent zone run');
     this.markerArray = this.markersService.processMarkers(this.weatherModelService.getTownsWeather());
-    // this.zone.run(() => {});
-    this.setMarkers(this.markerArray);
+    if (!this.inLoading) {
+      this.setMarkers(this.markerArray);
+    } // else do nothing
   }
 }
